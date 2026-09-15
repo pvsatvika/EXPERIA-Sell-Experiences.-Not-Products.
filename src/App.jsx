@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import GhostFibers from './components/GhostFibers'
 
 // ============================================================================
 // 3D ROTATING SPATIAL EXPERIENCE SELECTOR (CAROUSEL COMPONENT)
@@ -623,79 +622,24 @@ function App() {
       {/* ==================================================================== */}
       {currentView === 'marketplace' && (
         <>
-          {/* HERO — CHOOSE YOUR REALITY WITH GHOSTFIBERS ATMOSPHERE */}
-          <section className="relative z-20 container mx-auto px-6 pt-12 pb-10 text-center flex flex-col items-center justify-center min-h-[320px] rounded-3xl overflow-hidden glass-panel border border-white/10 my-4 shadow-2xl">
-            {/* Layer 0: Absolute Background Layer for GhostFibers */}
-            <div className="absolute inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
-              <GhostFibers
-                lineColor="#2563eb"
-                glowColor="#38bdf8"
-                speed={0.55}
-                scale={1}
-                rotation={0}
-                rotationSpeed={0.08}
-                layers={8}
-                waveAmplitude={0.12}
-                waveFrequency={2.5}
-                waveSpeed={0.7}
-                layerSpeed={0.08}
-                twist={0.18}
-                twistFrequency={5}
-                twistSpeed={1.2}
-                lineFrequency={4}
-                lineSpacing={1.5}
-                lineSharpness={7}
-                glowFalloff={7}
-                glowIntensity={1}
-                brightness={1.8}
-                blueBoost={1.15}
-                vignette={0.65}
-                grain={0}
-                dpr={1.25}
-                lightMode={false}
-                className="w-full h-full"
-              />
+          {/* HERO — CHOOSE YOUR REALITY */}
+          <section className="relative z-20 container mx-auto px-6 pt-12 pb-6 text-center flex flex-col items-center">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 text-xs font-mono font-semibold uppercase tracking-widest mb-6 animate-levitate shadow-lg shadow-cyan-500/10">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+              10 EXPERIENCES • 3 REALITY TYPES
             </div>
 
-            {/* Layer 1: Dedicated Contrast Overlay (Radial Darkening in Center for Readability) */}
-            <div
-              className="absolute inset-0 z-10 pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse at center, rgba(5, 8, 25, 0.78) 0%, rgba(5, 8, 25, 0.55) 42%, rgba(5, 8, 25, 0.22) 75%, rgba(5, 8, 25, 0.08) 100%)'
-              }}
-            />
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-4 animated-gradient-text max-w-5xl leading-none uppercase">
+              CHOOSE YOUR REALITY
+            </h1>
 
-            {/* Layer 2: Foreground Content Layer */}
-            <div className="relative z-20 flex flex-col items-center max-w-4xl mx-auto py-2">
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-slate-900/70 text-cyan-300 text-xs font-mono font-semibold uppercase tracking-widest mb-6 animate-levitate shadow-lg shadow-cyan-500/10 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-                10 EXPERIENCES • 3 REALITY TYPES
-              </div>
+            <p className="text-xl md:text-2xl font-light text-cyan-300/90 tracking-wide mb-3">
+              Sell Experiences. Not Products.
+            </p>
 
-              <h1
-                className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-4 bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-400 bg-clip-text text-transparent max-w-5xl leading-none uppercase drop-shadow-lg"
-                style={{
-                  textShadow: '0 0 28px rgba(96, 165, 250, 0.28)'
-                }}
-              >
-                CHOOSE YOUR REALITY
-              </h1>
-
-              <p
-                className="text-xl md:text-2xl font-medium tracking-wide mb-3"
-                style={{ color: 'rgba(226, 232, 240, 0.95)' }}
-              >
-                Sell Experiences. Not Products.
-              </p>
-
-              <p
-                className="text-base md:text-lg max-w-2xl font-light leading-relaxed mb-4"
-                style={{ color: 'rgba(203, 213, 225, 0.88)' }}
-              >
-                Discover extraordinary access passes across real-world journeys, immersive VR simulations and future concepts.
-              </p>
-            </div>
+            <p className="text-slate-400 text-base md:text-lg max-w-2xl font-light leading-relaxed mb-6">
+              Discover extraordinary access passes across real-world journeys, immersive VR simulations and future concepts.
+            </p>
           </section>
 
           {/* REALITY TYPE FILTERS */}
