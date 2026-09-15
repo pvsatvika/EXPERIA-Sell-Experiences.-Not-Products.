@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+:root {
+  --bg-dark: #070913;
+  --card-bg: rgba(18, 22, 41, 0.55);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(99, 102, 241, 0.4);
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-indigo: #6366f1;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #f3f4f6;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Anti-Gravity & Levitation Animations */
+@keyframes levitate {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.4deg);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes floatDelayed {
+  0%, 100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.08);
+  }
+}
+
+/* Utility classes */
+.animate-levitate {
+  animation: levitate 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatDelayed 6s ease-in-out infinite 1.5s;
+}
+
+.animate-ambient-pulse {
+  animation: ambientPulse 8s ease-in-out infinite;
+}
+
+/* Glassmorphism Components */
+.glass-panel {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--card-border-hover);
+  box-shadow: 0 20px 50px 0 rgba(99, 102, 241, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px) scale(1.01);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(139, 92, 246, 0.4) 100%);
+  border-color: rgba(168, 85, 247, 0.7);
+  box-shadow: 0 6px 30px rgba(139, 92, 246, 0.45);
+  transform: translateY(-2px);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-title {
+  background: linear-gradient(135deg, #e0e7ff 0%, #818cf8 40%, #c084fc 80%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-space-mesh {
+  background-color: #050711;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.18) 0px, transparent 40%),
+    radial-gradient(at 90% 20%, rgba(168, 85, 247, 0.15) 0px, transparent 45%),
+    radial-gradient(at 50% 60%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+    radial-gradient(at 20% 85%, rgba(139, 92, 246, 0.15) 0px, transparent 40%);
+}
+
+/* Spatial Marketplace Holographic Badges */
+.badge-realworld {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+}
+
+.badge-immersive {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.25);
+}
+
+.badge-future {
+  background: rgba(217, 70, 239, 0.12);
+  color: #f0abfc;
+  border: 1px solid rgba(240, 171, 252, 0.35);
+  box-shadow: 0 0 14px rgba(217, 70, 239, 0.25);
+}
+
+/* Spatial Hero Card Glow */
+.spatial-card-hero {
+  background: linear-gradient(135deg, rgba(18, 22, 45, 0.75) 0%, rgba(10, 13, 28, 0.85) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spatial-card-hero:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 30px 80px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Holographic Input Control */
+.spatial-input {
+  background: rgba(15, 20, 38, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Spatial 3D Perspective & Depth Carousel Utilities */
+.perspective-spatial {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.glow-cursor-spotlight {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+}
+
+/* React Bits Gradient Text Animation */
+@keyframes textShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(90deg, #e0e7ff 0%, #818cf8 25%, #c084fc 50%, #38bdf8 75%, #e0e7ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 6s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+
