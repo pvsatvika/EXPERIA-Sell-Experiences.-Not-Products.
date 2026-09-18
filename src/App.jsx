@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react'
 
+// Helper to identify Future Concept experiences
+const isFutureConcept = (item) => {
+  if (!item) return false
+  const typeStr = (item.realityType || item.category || '').toUpperCase()
+  return (
+    typeStr.includes('CONCEPT') ||
+    (typeStr.includes('FUTURE') && !typeStr.includes('CITY')) ||
+    typeStr.includes('SPACE') ||
+    typeStr.includes('SUBMERGED')
+  )
+}
+
 // ============================================================================
 // 3D ROTATING SPATIAL EXPERIENCE SELECTOR (CAROUSEL COMPONENT)
 // ============================================================================
@@ -201,6 +213,14 @@ function SpatialCarousel({ items, onSelectExperience, onAddToCart, getBadgeClass
                     </div>
                   )}
 
+                  {/* Future Concept Indicator */}
+                  {isFutureConcept(item) && (
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300 text-[10px] font-mono font-bold mb-1 backdrop-blur-sm">
+                      <span>✦</span>
+                      <span>Not currently available</span>
+                    </div>
+                  )}
+
                   <p className="text-xs text-slate-400 line-clamp-2 font-light leading-relaxed">
                     {item.description}
                   </p>
@@ -216,16 +236,29 @@ function SpatialCarousel({ items, onSelectExperience, onAddToCart, getBadgeClass
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        onAddToCart(item)
-                      }}
-                      className="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-400/30 border border-cyan-400/40 text-cyan-300 text-xs font-mono font-bold transition-all cursor-pointer"
-                      title="Add to Cart"
-                    >
-                      + CART
-                    </button>
+                    {isFutureConcept(item) ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onSelectExperience(item)
+                        }}
+                        className="px-3 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-400/30 border border-purple-400/40 text-purple-300 text-xs font-mono font-bold transition-all cursor-pointer"
+                        title="Explore Concept"
+                      >
+                        EXPLORE CONCEPT
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          onAddToCart(item)
+                        }}
+                        className="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-400/30 border border-cyan-400/40 text-cyan-300 text-xs font-mono font-bold transition-all cursor-pointer"
+                        title="Add to Cart"
+                      >
+                        + CART
+                      </button>
+                    )}
                     <button
                       onClick={(e) => {
                         e.stopPropagation()
@@ -237,11 +270,13 @@ function SpatialCarousel({ items, onSelectExperience, onAddToCart, getBadgeClass
                       }}
                       className={`px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                         isCenter
-                          ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/30 border border-cyan-300/40'
+                          ? isFutureConcept(item)
+                            ? 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/30 border border-purple-300/40'
+                            : 'bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/30 border border-cyan-300/40'
                           : 'bg-white/10 hover:bg-white/20 text-slate-300 border border-white/10'
                       }`}
                     >
-                      {isCenter ? 'ENTER' : 'ROTATE'}
+                      {isCenter ? (isFutureConcept(item) ? 'EXPLORE' : 'ENTER') : 'ROTATE'}
                     </button>
                   </div>
                 </div>
@@ -374,6 +409,7 @@ function App() {
   // Cart Management
   const handleAddToCart = (item) => {
     if (!item) return
+    if (isFutureConcept(item)) return // Future concept items cannot be added to cart
     setCart((prevCart) => {
       const existingIndex = prevCart.findIndex(
         (cItem) => (cItem._id && cItem._id === item._id) || cItem.title === item.title
@@ -857,6 +893,14 @@ function App() {
                             </div>
                           )}
 
+                          {/* Future Concept Indicator */}
+                          {isFutureConcept(item) && (
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300 text-[10px] font-mono font-bold mb-2 backdrop-blur-sm">
+                              <span>✦</span>
+                              <span>Not currently available</span>
+                            </div>
+                          )}
+
                           <p className="text-slate-400 text-sm leading-relaxed font-light line-clamp-3">
                             {item.description}
                           </p>
@@ -870,15 +914,27 @@ function App() {
                               ₹{typeof item.price === 'number' ? item.price.toLocaleString('en-IN') : (item.price || 0)}
                             </span>
                           </div>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleAddToCart(item)
-                            }}
-                            className="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-400/30 border border-cyan-400/40 text-xs font-bold text-cyan-300 hover:text-white transition-all cursor-pointer shadow-lg"
-                          >
-                            + ADD TO CART
-                          </button>
+                          {isFutureConcept(item) ? (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setSelectedExperience(item)
+                              }}
+                              className="px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-400/30 border border-purple-400/50 text-xs font-bold font-mono text-purple-300 hover:text-white transition-all cursor-pointer shadow-lg"
+                            >
+                              EXPLORE CONCEPT
+                            </button>
+                          ) : (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleAddToCart(item)
+                              }}
+                              className="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-400/30 border border-cyan-400/40 text-xs font-bold text-cyan-300 hover:text-white transition-all cursor-pointer shadow-lg"
+                            >
+                              + ADD TO CART
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1292,6 +1348,13 @@ function App() {
               </div>
             )}
 
+            {isFutureConcept(selectedExperience) && (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-mono font-bold mb-4 backdrop-blur-sm">
+                <span className="text-base">✦</span>
+                <span>FUTURE CONCEPT PREVIEW — Not currently available</span>
+              </div>
+            )}
+
             <p className="text-slate-300 text-sm leading-relaxed mb-6 font-light">
               {selectedExperience.description}
             </p>
@@ -1305,15 +1368,26 @@ function App() {
               </div>
 
               <div className="flex gap-3 w-full sm:w-auto">
-                <button
-                  onClick={() => {
-                    handleAddToCart(selectedExperience)
-                    setSelectedExperience(null)
-                  }}
-                  className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-xs font-mono font-extrabold text-white shadow-xl shadow-cyan-500/25 cursor-pointer border border-cyan-300/40 transition-all hover:scale-105"
-                >
-                  ADD PASS TO CART
-                </button>
+                {isFutureConcept(selectedExperience) ? (
+                  <button
+                    onClick={() => {
+                      setSelectedExperience(null)
+                    }}
+                    className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs font-mono font-extrabold text-white shadow-xl shadow-purple-500/25 cursor-pointer border border-purple-300/40 transition-all hover:scale-105"
+                  >
+                    EXPLORE CONCEPT
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      handleAddToCart(selectedExperience)
+                      setSelectedExperience(null)
+                    }}
+                    className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-xs font-mono font-extrabold text-white shadow-xl shadow-cyan-500/25 cursor-pointer border border-cyan-300/40 transition-all hover:scale-105"
+                  >
+                    ADD PASS TO CART
+                  </button>
+                )}
               </div>
             </div>
           </div>
