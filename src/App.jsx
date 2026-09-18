@@ -1090,13 +1090,6 @@ function App() {
                       className="spatial-input w-full px-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
                     />
                   </div>
-
-                  <div className="mt-6 p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-300 font-mono space-y-1">
-                    <span className="font-bold uppercase block text-cyan-200">⚡ HACKATHON SPATIAL VERIFICATION</span>
-                    <p className="font-light text-slate-300">
-                      Payment gateway integration is simulated for this hackathon prototype. Clicking "PLACE ORDER" immediately reserves your experience passes in MongoDB Atlas.
-                    </p>
-                  </div>
                 </form>
               </div>
             </div>
